@@ -3,7 +3,7 @@ import { FaStar } from "react-icons/fa";
 
 function Hero(){
     return(
-        <div className="mt-[14vh]">
+        <div className="h-[80vh]">
         <div   class = "image"
             style = {{
                height: "40vh",
