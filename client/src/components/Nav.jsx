@@ -16,7 +16,9 @@ function Nav(){
                         <li>FAQs</li>
                     </ul>
                 </div>
-               
+               <div>
+                <p>hi</p>
+               </div>
             </div>
         </div>
       </div>
