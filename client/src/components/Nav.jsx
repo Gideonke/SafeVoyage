@@ -13,14 +13,12 @@ function Nav() {
           <div>
             <ul className="flex gap-8  text-blue-400 cursor-pointer group">
               <Link to="/">
-                {" "}
                 <li>Home</li>
               </Link>
               <Link to="/register">
                 <li>Sign Up</li>
               </Link>
               <Link to="/login">
-                {" "}
                 <li>Login</li>
               </Link>
               <li>FAQs</li>
