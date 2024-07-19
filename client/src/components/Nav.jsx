@@ -18,6 +18,7 @@ function Nav(){
                 </div>
                <div>
                 <p>hi</p>
+                <p>my name</p>
                </div>
             </div>
         </div>
