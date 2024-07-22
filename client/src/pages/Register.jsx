@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Modal from '../components/Modal';  
+import Modal from '../components/Modal';
 
 function Register() {
     const [formData, setFormData] = useState({
@@ -97,7 +97,7 @@ function Register() {
                 }
                 return res.json();
             })
-            .then((data) => {
+            .then(() => {
                 navigate("/login");
             })
             .catch((err) => console.log(err));
@@ -133,166 +133,180 @@ function Register() {
     };
 
     return (
-        <div className="h-[95vh] bg-blue-400 mt-[12vh]">
-            <h1 className="text-3xl flex justify-center text-white mt-10">
-                Sign Up Here
-            </h1>
-            <div className="flex justify-around items-center">
-                <div className="bg-slate-200 rounded-2xl min-h-[40vh]">
-                    <form
-                        className="w-[600px] flex flex-col gap-5 mt-14 items-center text-2xl"
-                        onSubmit={handleSubmit}
-                    >
+        <div className="flex flex-col items-center min-h-screen bg-gradient-to-r from-blue-400 to-blue-600">
+            <h1 className="text-4xl font-bold text-white mt-12">Sign Up</h1>
+            <div className="bg-white rounded-lg shadow-lg p-8 mt-36 w-full max-w-lg">
+                <form className="space-y-6" onSubmit={handleSubmit}>
+                    <div className="space-y-2">
+                        <label className="block text-sm font-medium text-gray-700">First Name</label>
                         <input
                             type="text"
                             name="first_name"
-                            placeholder="First Name"
-                            className="rounded-2xl py-4"
+                            placeholder="Enter your first name"
+                            className="w-full p-3 border border-gray-300 rounded-lg"
                             value={formData.first_name}
                             onChange={handleChange}
                         />
-                        {errors.first_name && <p className="text-red-500">{errors.first_name}</p>}
-                        
+                        {errors.first_name && <p className="text-red-500 text-sm">{errors.first_name}</p>}
+                    </div>
+                    <div className="space-y-2">
+                        <label className="block text-sm font-medium text-gray-700">Last Name</label>
                         <input
                             type="text"
                             name="last_name"
-                            placeholder="Last Name"
-                            className="rounded-2xl py-4"
+                            placeholder="Enter your last name"
+                            className="w-full p-3 border border-gray-300 rounded-lg"
                             value={formData.last_name}
                             onChange={handleChange}
                         />
-                        {errors.last_name && <p className="text-red-500">{errors.last_name}</p>}
-                        
+                        {errors.last_name && <p className="text-red-500 text-sm">{errors.last_name}</p>}
+                    </div>
+                    <div className="space-y-2">
+                        <label className="block text-sm font-medium text-gray-700">Email</label>
                         <input
                             type="email"
                             name="email"
-                            placeholder="Email"
-                            className="rounded-2xl py-4"
+                            placeholder="Enter your email"
+                            className="w-full p-3 border border-gray-300 rounded-lg"
                             value={formData.email}
                             onChange={handleChange}
                         />
-                        {errors.email && <p className="text-red-500">{errors.email}</p>}
-                        
+                        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+                    </div>
+                    <div className="space-y-2">
+                        <label className="block text-sm font-medium text-gray-700">Password</label>
                         <input
                             type="password"
                             name="password"
-                            placeholder="Password"
-                            className="rounded-2xl py-4"
+                            placeholder="Enter your password"
+                            className="w-full p-3 border border-gray-300 rounded-lg"
                             value={formData.password}
                             onChange={handleChange}
                         />
-                        {errors.password && <p className="text-red-500">{errors.password}</p>}
-                        
-                        <p className="text-2xl">Sign in as:</p>
+                        {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+                    </div>
+                    <fieldset className="space-y-2">
+                        <legend className="text-sm font-medium text-gray-700">Sign in as:</legend>
                         <div className="flex gap-4">
-                            <input
-                                type="radio"
-                                name="userType"
-                                value="Agency"
-                                className="cursor-pointer"
-                                onChange={handleChange}
-                            />
-                            <p>Agency</p>
+                            <label className="flex items-center space-x-2">
+                                <input
+                                    type="radio"
+                                    name="userType"
+                                    value="Agency"
+                                    className="form-radio"
+                                    onChange={handleChange}
+                                />
+                                <span className="text-sm">Agency</span>
+                            </label>
+                            <label className="flex items-center space-x-2">
+                                <input
+                                    type="radio"
+                                    name="userType"
+                                    value="Client"
+                                    className="form-radio"
+                                    onChange={handleChange}
+                                />
+                                <span className="text-sm">Client</span>
+                            </label>
                         </div>
-                        <div className="flex gap-4">
+                        {errors.userType && <p className="text-red-500 text-sm">{errors.userType}</p>}
+                    </fieldset>
+                    <button
+                        type="submit"
+                        className="w-full py-3 bg-blue-500 text-white rounded-lg text-lg font-semibold hover:bg-blue-600"
+                    >
+                        Sign Up
+                    </button>
+                </form>
+            </div>
+            <Modal show={showAgencyForm} onClose={() => setShowAgencyForm(false)}>
+                <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+                    <h2 className="text-2xl font-bold mb-6">Agency Details</h2>
+                    <form className="space-y-6" onSubmit={handleAgencySubmit}>
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700">Agency Name</label>
                             <input
-                                type="radio"
-                                name="userType"
-                                value="Client"
-                                className="cursor-pointer"
-                                onChange={handleChange}
+                                type="text"
+                                name="agency_name"
+                                placeholder="Enter agency name"
+                                className="w-full p-3 border border-gray-300 rounded-lg"
+                                value={agencyData.agency_name}
+                                onChange={handleAgencyChange}
                             />
-                            <p>Client</p>
+                            {errors.agency_name && <p className="text-red-500 text-sm">{errors.agency_name}</p>}
                         </div>
-                        {errors.userType && <p className="text-red-500">{errors.userType}</p>}
-                        
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700">Description</label>
+                            <input
+                                type="text"
+                                name="description"
+                                placeholder="Enter a brief description"
+                                className="w-full p-3 border border-gray-300 rounded-lg"
+                                value={agencyData.description}
+                                onChange={handleAgencyChange}
+                            />
+                            {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
+                        </div>
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700">Email</label>
+                            <input
+                                type="email"
+                                name="agency_email"
+                                placeholder="Enter agency email"
+                                className="w-full p-3 border border-gray-300 rounded-lg"
+                                value={agencyData.agency_email}
+                                onChange={handleAgencyChange}
+                            />
+                            {errors.agency_email && <p className="text-red-500 text-sm">{errors.agency_email}</p>}
+                        </div>
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700">Registration Number</label>
+                            <input
+                                type="text"
+                                name="registrationNumber"
+                                placeholder="Enter registration number"
+                                className="w-full p-3 border border-gray-300 rounded-lg"
+                                value={agencyData.registrationNumber}
+                                onChange={handleAgencyChange}
+                            />
+                            {errors.registrationNumber && <p className="text-red-500 text-sm">{errors.registrationNumber}</p>}
+                        </div>
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700">Address</label>
+                            <input
+                                type="text"
+                                name="address"
+                                placeholder="Enter physical address"
+                                className="w-full p-3 border border-gray-300 rounded-lg"
+                                value={agencyData.address}
+                                onChange={handleAgencyChange}
+                            />
+                            {errors.address && <p className="text-red-500 text-sm">{errors.address}</p>}
+                        </div>
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700">Country of Registration</label>
+                            <input
+                                type="text"
+                                name="country_of_registration"
+                                placeholder="Enter country of registration"
+                                className="w-full p-3 border border-gray-300 rounded-lg"
+                                value={agencyData.country_of_registration}
+                                onChange={handleAgencyChange}
+                            />
+                            {errors.country_of_registration && <p className="text-red-500 text-sm">{errors.country_of_registration}</p>}
+                        </div>
                         <button
                             type="submit"
-                            className="text-2xl mt-10 bg-white rounded-full py-2 px-4 flex justify-center items-center"
+                            className="w-full py-3 bg-blue-500 text-white rounded-lg text-lg font-semibold hover:bg-blue-600"
                         >
-                            Sign Up
+                            Submit
                         </button>
                     </form>
                 </div>
-                <div className="h-[50vh] w-[40vw] bg-slate-200 rounded-2xl mt-14">
-                    <img src="src/assets/images/pexels-ahmedmuntasir-912050.jpg" className="h-[50vh] w-[800px]" alt="Sign Up"/>
-                </div>
-            </div>
-
-            <Modal show={showAgencyForm} onClose={() => setShowAgencyForm(false)}>
-                <form className="w-[600px] flex flex-col gap-5 mt-14 items-center text-2xl" onSubmit={handleAgencySubmit}>
-                    <input
-                        type="text"
-                        name="agency_name"
-                        placeholder="Agency Name"
-                        className="rounded-2xl py-4"
-                        value={agencyData.agency_name}
-                        onChange={handleAgencyChange}
-                    />
-                    {errors.agency_name && <p className="text-red-500">{errors.agency_name}</p>}
-                    
-                    <input
-                        type="text"
-                        name="description"
-                        placeholder="Description"
-                        className="rounded-2xl py-4"
-                        value={agencyData.description}
-                        onChange={handleAgencyChange}
-                    />
-                    {errors.description && <p className="text-red-500">{errors.description}</p>}
-                    
-                    <input
-                        type="email"
-                        name="agency_email"
-                        placeholder="Email"
-                        className="rounded-2xl py-4"
-                        value={agencyData.agency_email}
-                        onChange={handleAgencyChange}
-                    />
-                    {errors.agency_email && <p className="text-red-500">{errors.agency_email}</p>}
-                    
-                    <input
-                        type="text"
-                        name="registrationNumber"
-                        placeholder="Registration Number"
-                        className="rounded-2xl py-4"
-                        value={agencyData.registrationNumber}
-                        onChange={handleAgencyChange}
-                    />
-                    {errors.registrationNumber && <p className="text-red-500">{errors.registrationNumber}</p>}
-                    
-                    <input
-                        type="text"
-                        name="address"
-                        placeholder="Physical Address"
-                        className="rounded-2xl py-4"
-                        value={agencyData.address}
-                        onChange={handleAgencyChange}
-                    />
-                    {errors.address && <p className="text-red-500">{errors.address}</p>}
-                    
-                    <input
-                        type="text"
-                        name="country_of_registration"
-                        placeholder="Country of Registration"
-                        className="rounded-2xl py-4"
-                        value={agencyData.country_of_registration}
-                        onChange={handleAgencyChange}
-                    />
-                    {errors.country_of_registration && <p className="text-red-500">{errors.country_of_registration}</p>}
-                    
-                    <button
-                        type="submit"
-                        className="text-2xl mt-10 bg-white rounded-full py-2 px-4 flex justify-center items-center"
-                    >
-                        Submit
-                    </button>
-                </form>
             </Modal>
         </div>
     );
 }
 
 export default Register;
-
 

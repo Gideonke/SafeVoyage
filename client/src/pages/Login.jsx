@@ -54,46 +54,43 @@ function Login() {
   };
 
   return (
-    <div className="h-[95vh] bg-blue-400 mt-[12vh] flex justify-around items-center">
-      <div className="h-[60vh] w-[600px] bg-slate-200 rounded-2xl mt-14">
-        <img
-          src="src/assets/images/pexels-igor-starkov-233202-762026.jpg"
-          alt="Login Illustration"
-          className="h-[60vh] w-full rounded-2xl object-cover"
-        />
-      </div>
-      <div className="w-[600px] bg-slate-200 flex justify-center items-center flex-col rounded-2xl">
-        <div>
-          <h1 className="text-3xl mb-32 text-black mt-8">Login Here</h1>
+    <div className="h-screen bg-gradient-to-r from-blue-400 to-blue-600 flex justify-center items-center">
+      <div className="bg-white shadow-lg rounded-lg p-8 flex mt-32">
+        <div className="w-1/2">
+          <img
+            src="src/assets/images/pexels-igor-starkov-233202-762026.jpg"
+            alt="Login Illustration"
+            className="h-full w-full rounded-l-lg object-cover"
+          />
         </div>
-        <form
-          className="w-[500px] flex flex-col gap-10"
-          onSubmit={handleSubmit}
-        >
-          <input
-            type="text"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleLogin}
-            className="rounded-2xl py-4 bg-white text-2xl px-4"
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleLogin}
-            className="rounded-2xl py-4 text-2xl bg-white px-4"
-          />
-          <p className="text-red-500">{errorMessage}</p>
-          <button
-            type="submit"
-            className="text-2xl mt-10 bg-white rounded-full py-2 px-4 flex justify-center items-center w-[30%] ml-[30%]"
-          >
-            Login
-          </button>
-        </form>
+        <div className="w-1/2 flex flex-col justify-center items-center p-8">
+          <h1 className="text-4xl font-bold mb-8">Login Here</h1>
+          <form className="w-full flex flex-col gap-6" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleLogin}
+              className="rounded-lg py-3 px-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleLogin}
+              className="rounded-lg py-3 px-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}
+            <button
+              type="submit"
+              className="bg-blue-500 text-white rounded-full py-3 px-2 mt-6 hover:bg-blue-600 transition duration-300"
+            >
+              Login
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

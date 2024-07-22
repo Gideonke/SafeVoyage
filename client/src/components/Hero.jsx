@@ -54,7 +54,7 @@ function Hero(){
                backgroundSize: "cover",
                backgroundRepeat: "no-repeat",
                backgroundPosition:"center",
-               filter: 'brightness(0.5)'               
+               filter: 'brightness(0.7)'               
             }}>
  <div className="flex flex-col justify-center items-center text-center">
                     <div className="mt-[1vh] flex flex-col gap-4 w-[80vw]">
