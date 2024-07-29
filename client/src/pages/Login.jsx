@@ -54,16 +54,16 @@ function Login() {
   };
 
   return (
-    <div className="h-screen bg-gradient-to-r from-blue-400 to-blue-600 flex justify-center items-center">
-      <div className="bg-white shadow-lg rounded-lg p-8 flex mt-32">
-        <div className="w-1/2">
+    <div className="h-screen bg-gradient-to-r from-blue-400 to-blue-600 flex justify-center items-center px-4">
+      <div className="bg-white shadow-lg rounded-lg flex flex-col lg:flex-row lg:mt-0 mt-32">
+        <div className="w-full lg:w-1/2">
           <img
             src="src/assets/images/pexels-igor-starkov-233202-762026.jpg"
             alt="Login Illustration"
-            className="h-full w-full rounded-l-lg object-cover"
+            className="h-48 lg:h-full w-full rounded-t-lg lg:rounded-l-lg lg:rounded-tr-none object-cover"
           />
         </div>
-        <div className="w-1/2 flex flex-col justify-center items-center p-8">
+        <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-8">
           <h1 className="text-4xl font-bold mb-8">Login Here</h1>
           <form className="w-full flex flex-col gap-6" onSubmit={handleSubmit}>
             <input
@@ -97,4 +97,5 @@ function Login() {
 }
 
 export default Login;
+
 

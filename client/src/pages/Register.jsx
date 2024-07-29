@@ -24,83 +24,74 @@ function Register() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
+        setFormData(prevState => ({
+            ...prevState,
             [name]: value
-        });
+        }));
     };
 
     const handleAgencyChange = (e) => {
-        setAgencyData({
-            ...agencyData,
-            [e.target.name]: e.target.value
-        });
+        const { name, value } = e.target;
+        setAgencyData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const newErrors = validate(formData);
         if (Object.keys(newErrors).length === 0) {
-            const url = "http://127.0.0.1:8000/api/userregistration/";
-            const options = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
-            };
-            fetch(url, options).then((res) => {
-                if (!res.ok) {
-                    return res.json().then(message => {
-                        setErrors({ ...errors, email: message.email[0] });
-                    });
-                }
-                return res.json().then((data) => {
+            try {
+                const response = await fetch("http://127.0.0.1:8000/api/userregistration/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(formData),
+                });
+                const data = await response.json();
+                if (response.status !== 200) {
+                    setErrors({ email: data.email ? data.email[0] : 'Registration error' });
+                } else {
                     if (formData.userType === 'Agency') {
                         setShowAgencyForm(true);
                     } else {
                         navigate("/login");
                     }
-                }).catch((err) => console.log(err));
-            });
+                }
+            } catch (err) {
+                console.log(err);
+            }
         } else {
             setErrors(newErrors);
         }
     };
 
-    const handleAgencySubmit = (e) => {
+    const handleAgencySubmit = async (e) => {
         e.preventDefault();
         const newErrors = validateAgency(agencyData);
         if (Object.keys(newErrors).length === 0) {
-            const combinedData = { ...formData, ...agencyData };
-            submitRegistration(combinedData);
+            try {
+                const response = await fetch("http://127.0.0.1:8000/api/travelagency/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ ...formData, ...agencyData }),
+                });
+                const data = await response.json();
+                if (response.status !== 200) {
+                    setErrors({ email: data.email ? data.email[0] : 'Registration error' });
+                } else {
+                    navigate("/login");
+                }
+            } catch (err) {
+                console.log(err);
+            }
         } else {
             setErrors(newErrors);
         }
-    };
-
-    const submitRegistration = (data) => {
-        const url = "http://127.0.0.1:8000/api/travelagency/";
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        };
-        fetch(url, options)
-            .then((res) => {
-                if (!res.ok) {
-                    return res.json().then(message => {
-                        setErrors({ ...errors, email: message.email ? message.email[0] : 'Error' });
-                    });
-                }
-                return res.json();
-            })
-            .then(() => {
-                navigate("/login");
-            })
-            .catch((err) => console.log(err));
     };
 
     const validate = (data) => {
@@ -132,8 +123,9 @@ function Register() {
         return errors;
     };
 
+
     return (
-        <div className="flex flex-col items-center min-h-screen bg-gradient-to-r from-blue-400 to-blue-600">
+        <div className="flex flex-col items-center min-h-screen bg-gradient-to-r from-blue-400 to-blue-600 px-4">
             <h1 className="text-4xl font-bold text-white mt-12">Sign Up</h1>
             <div className="bg-white rounded-lg shadow-lg p-8 mt-36 w-full max-w-lg">
                 <form className="space-y-6" onSubmit={handleSubmit}>
@@ -309,4 +301,6 @@ function Register() {
 }
 
 export default Register;
+
+
 
